@@ -11,7 +11,7 @@
 import { CourseAssureInfo } from 'lib_core_model/src/main/ets/data/CourseAssureInfo'
 import { Constants } from 'lib_core_model/src/main/ets/util/Constants'
 import { lpx2fp } from 'lib_core_model/src/main/ets/util/DesignShow'
-import GoodsShowUtil from '../../../../../../lib_common/src/main/ets/util/GoodsShowUtil'
+import GoodsShowUtil from 'lib_common/src/main/ets/util/GoodsShowUtil'
 
 @CustomDialog
 export default struct CourseAssureDialog {

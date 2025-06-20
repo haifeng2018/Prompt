@@ -1,11 +1,11 @@
 import HashMap from '@ohos.util.HashMap';
 import Logger from 'lib_core_model/src/main/ets/util/Logger';
 // import { AliPlayer, AliPlayerFactory } from '../../../../oh_modules/premierlibrary';
-import { AliPlayer, AliPlayerFactory } from 'premierlibrary';
+// import { AliPlayer, AliPlayerFactory } from 'premierlibrary';
 
 export class AliVideoController {
   tag: string = 'VideoController'
-  private playerMap: HashMap<number, AliPlayer> = new HashMap();
+  // private playerMap: HashMap<number, AliPlayer> = new HashMap();
   private index: number = 0;
 
   /**
@@ -15,13 +15,13 @@ export class AliVideoController {
    * @returns
    */
   public createAliPlayer(context: Context, traceId: string | null) {
-    let playerInstance = AliPlayerFactory.createAliPlayer(context, traceId || '');
-    this.playerMap.set(this.index, playerInstance);
-    Logger.info(this.tag, `created: index = ${this.index}, playerInstance = ${playerInstance}`);
+    // let playerInstance = AliPlayerFactory.createAliPlayer(context, traceId || '');
+    // this.playerMap.set(this.index, playerInstance);
+    // Logger.info(this.tag, `created: index = ${this.index}, playerInstance = ${playerInstance}`);
     return this.index++;
   }
 
-  public getPlayer(index: number): AliPlayer | undefined {
+  /*public getPlayer(index: number): AliPlayer | undefined {
     if (index === -1) {
       return;
     }
@@ -29,13 +29,13 @@ export class AliVideoController {
       return this.playerMap.get(index);
     }
     return;
-  }
+  }*/
 
   public dispose(index: number) {
-    if (this.playerMap.hasKey(index)) {
+   /* if (this.playerMap.hasKey(index)) {
       this.playerMap.get(index).release();
       this.playerMap.remove((index));
-    }
+    }*/
   }
 }
 

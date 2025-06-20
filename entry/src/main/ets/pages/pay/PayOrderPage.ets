@@ -1,4 +1,4 @@
-import { Pay } from '@cashier_alipay/cashiersdk'
+// import { Pay } from '@cashier_alipay/cashiersdk'
 import { JSON } from '@kit.ArkTS'
 import { BusinessError } from '@kit.BasicServicesKit'
 import common from '@ohos.app.ability.common'
@@ -248,7 +248,7 @@ struct PayOrderPage {
   aliPay(orderInfo?: string) {
     Logger.info(this.tag, `orderInfo = ${orderInfo}`)
     // orderInfo 由服务端生成 第二个参数 控制是否展示支付宝loading
-    new Pay().pay(orderInfo, true)
+    /*new Pay().pay(orderInfo, true)
       .then((result) => {
         this.sendOrderResultRequest()
         Logger.info(
@@ -259,7 +259,7 @@ struct PayOrderPage {
       .catch((error: BusinessError) => {
         Logger.error(this.tag, `result = ${error.message}`)
         this.sendOrderResultRequest()
-      })
+      })*/
   }
 
   startTimer() {

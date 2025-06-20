@@ -12,7 +12,7 @@ import DateUtil from 'lib_common/src/main/ets/util/DateUtil'
 import { CouponInfo } from 'lib_core_model/src/main/ets/data/CouponInfo'
 import { CourseCouponStatus } from 'lib_core_model/src/main/ets/data/CourseCouponStatus'
 import Logger from 'lib_core_model/src/main/ets/util/Logger'
-import AmountUtil from '../../../../../lib_common/src/main/ets/util/AmountUtil'
+import AmountUtil from 'lib_common/src/main/ets/util/AmountUtil'
 
 class CouponUtil {
   getCouponTypeTxt(discountMethod?: number): string {

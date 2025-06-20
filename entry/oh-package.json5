@@ -9,9 +9,9 @@
     "lib_core_model": "file:../lib_core_model",
     "lib_common": "file:../lib_common",
     // 支付宝支付SDK https://ohpm.openharmony.cn/#/cn/detail/@cashier_alipay%2Fcashiersdk
-    "@cashier_alipay/cashiersdk": "^15.8.24",
+//    "@cashier_alipay/cashiersdk": "^15.8.24",
     // 阿里云播放器SDK https://help.aliyun.com/zh/vod/developer-reference/integrated-hongmeng-harmonyos-next-framework-player-sdk?spm=a2c4g.11186623.0.0.1a334667kmbh5K
-    "premierlibrary": "file:../entry/libs/apsaravideo_player_sdk_harmonyosnext_20240717.har",
+//    "premierlibrary": "file:../entry/libs/apsaravideo_player_sdk_harmonyosnext_20240717.har",
     // 富文本解析组件 https://ohpm.openharmony.cn/#/cn/detail/@ohasasugar%2Fhp-richtext
     "@ohasasugar/hp-richtext": "^2.1.0"
   }

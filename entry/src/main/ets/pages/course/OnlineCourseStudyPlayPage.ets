@@ -74,8 +74,8 @@ struct OnlineCourseStudyPlayPage {
 
   aboutToDisappear() {
     // 关闭播放器
-    AliVideoController.getPlayer(this.aliPlayerId)?.stop();
-    AliVideoController.dispose(this.aliPlayerId);
+    // AliVideoController.getPlayer(this.aliPlayerId)?.stop();
+    // AliVideoController.dispose(this.aliPlayerId);
     // 设置窗口亮度
     window.getLastWindow(getContext(this)).then(wind => {
       wind.setWindowBrightness(-1)
@@ -85,11 +85,11 @@ struct OnlineCourseStudyPlayPage {
   }
 
   onPageShow(): void {
-    AliVideoController.getPlayer(this.aliPlayerId)?.start();
+    // AliVideoController.getPlayer(this.aliPlayerId)?.start();
   }
 
   onPageHide() {
-    AliVideoController.getPlayer(this.aliPlayerId)?.pause();
+    // AliVideoController.getPlayer(this.aliPlayerId)?.pause();
   }
 
   onBackPress(): boolean | void {
@@ -218,13 +218,13 @@ struct OnlineCourseStudyPlayPage {
     clearTimeout(this.playProgressReportIntervalId)
     this.playProgressReportIntervalId = setInterval(() => {
       if (this.playStatus == AliPlayerState.Playing) {
-        let parm = new UpdateVideoProgressParm()
+        /*let parm = new UpdateVideoProgressParm()
         let getCurrentPosition = AliVideoController.getPlayer(this.aliPlayerId)?.getCurrentPosition() ?? 0
         parm.currentPosition = getCurrentPosition / 1000
         parm.goodsId = this.goodsId ?? ''
         parm.materialId = this.materialId ?? ''
         parm.subOrderId = this.goodsInfo?.subOrderId ?? 0
-        this.sendUpdatePlayProgressRequest(parm)
+        this.sendUpdatePlayProgressRequest(parm)*/
       }
     }, 5000);
   }

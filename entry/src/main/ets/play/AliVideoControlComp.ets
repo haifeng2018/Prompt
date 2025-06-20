@@ -2,7 +2,7 @@ import App from 'lib_core_model/src/main/ets/App'
 import { Constants } from 'lib_core_model/src/main/ets/util/Constants'
 import { SeekType } from 'lib_core_model/src/main/ets/util/Enums'
 import Logger from 'lib_core_model/src/main/ets/util/Logger'
-import { AliPlayer } from 'premierlibrary'
+// import { AliPlayer } from 'premierlibrary'
 import { LocalStorageConstants } from '../data/LocalStorageConstants'
 import AliVideoController from '../play/AliVideoController'
 
@@ -19,7 +19,7 @@ export struct AliVideoControlComp {
   @State isShowPlayControl: boolean = true
   @State aliPlayerId: number = -1
   @State showFinishScene: boolean = false
-  private aliPlayer: AliPlayer | undefined = undefined
+  // private aliPlayer: AliPlayer | undefined = undefined
   private timeoutId: number | null = null
   private tag: string = 'AliVideoControlComp'
 
@@ -28,7 +28,7 @@ export struct AliVideoControlComp {
     Logger.info(this.tag, `aliPlayerId = ${this.aliPlayerId}`)
     Logger.info(this.tag, `videoProgress = ${this.videoProgress}`)
     Logger.info(this.tag, `videoDurationStr = ${this.videoDurationStr}`)
-    this.aliPlayer = AliVideoController.getPlayer(this.aliPlayerId)
+    // this.aliPlayer = AliVideoController.getPlayer(this.aliPlayerId)
   }
 
   aboutToDisappear(): void {
@@ -132,14 +132,15 @@ export struct AliVideoControlComp {
   }
 
   private handlePlayOrPauseClick() {
-    this.isPlaying ? this.aliPlayer?.pause() : this.aliPlayer?.start()
+    // this.isPlaying ? this.aliPlayer?.pause() : this.aliPlayer?.start()
     this.isPlaying = !this.isPlaying
   }
 
   private handleSliderChange(value: number, mode: SliderChangeMode) {
     this.videoProgress = value;
     if (mode === SliderChangeMode.End || mode === SliderChangeMode.Click) {
-      let duration = this.aliPlayer?.getDuration() ?? 0
+      // let duration = this.aliPlayer?.getDuration() ?? 0
+      let duration = 0
       if (duration <= 0) {
         return;
       }
@@ -147,7 +148,7 @@ export struct AliVideoControlComp {
       Logger.info(this.tag, `this.videoDuration = ${duration}, value = ${value}`)
       let seekValue: number = Math.floor(duration / 100 * value);
       Logger.info(this.tag, `seekto = ${seekValue}`)
-      this.aliPlayer?.seekTo(seekValue, SeekType.ACCURATE);
+      // this.aliPlayer?.seekTo(seekValue, SeekType.ACCURATE);
     }
   }
 

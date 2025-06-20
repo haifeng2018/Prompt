@@ -4,13 +4,13 @@ import { Constants } from 'lib_core_model/src/main/ets/util/Constants'
 import { lpx2fp } from 'lib_core_model/src/main/ets/util/DesignShow'
 import { AliPlayerState, SeekType } from 'lib_core_model/src/main/ets/util/Enums'
 import Logger from 'lib_core_model/src/main/ets/util/Logger'
-import { InfoBean, InfoCode, UrlSource, VidAuth } from 'premierlibrary'
-import {
-  OnInfoListener,
-  OnLoadingStatusListener,
-  OnPreparedListener,
-  OnStateChangedListener
-} from 'premierlibrary/src/main/ets/com/aliyun/player/IPlayer'
+// import { InfoBean, InfoCode, UrlSource, VidAuth } from 'premierlibrary'
+// import {
+//   OnInfoListener,
+//   OnLoadingStatusListener,
+//   OnPreparedListener,
+//   OnStateChangedListener
+// } from 'premierlibrary/src/main/ets/com/aliyun/player/IPlayer'
 import { AppStorageConstants } from '../data/AppStorageConstants'
 import { LocalStorageConstants } from '../data/LocalStorageConstants'
 import TimeUtil from '../util/TimeUtil'
@@ -63,7 +63,7 @@ export struct AliVideoComp {
 
   onPlayTokenUpdated() {
     Logger.info(this.tag, `play token = ${this.playToken},play materialId = ${this.materialId}`)
-    let player = AliVideoController.getPlayer(this.aliPlayerId)
+   /* let player = AliVideoController.getPlayer(this.aliPlayerId)
     if (player) {
       const vidAuthSource: VidAuth = new VidAuth()
       vidAuthSource.setVid(this.materialId)
@@ -72,11 +72,11 @@ export struct AliVideoComp {
       player.prepare()
     } else {
       Logger.info(this.tag, `XC get player failed. playerId = ${this.aliPlayerId}`)
-    }
+    }*/
   }
 
   onPlayUrlUpdated() {
-    this.playIsTryEnd = false
+    /*this.playIsTryEnd = false
     Logger.info(this.tag, `playUrl = ${this.playUrl}`)
     let player = AliVideoController.getPlayer(this.aliPlayerId)
     if (player) {
@@ -84,22 +84,22 @@ export struct AliVideoComp {
       urlSource.setUri(this.playUrl) // 必选参数，播放地址，可以是第三方点播地址，或阿里云视频点播服务中的播放地址，也可以是本地视频地址。
       player.setUrlDataSource(urlSource)
       player.prepare()
-    }
+    }*/
   }
 
   onShowBuyPlayUpdated() {
-    AliVideoController.getPlayer(this.aliPlayerId)?.stop()
+    // AliVideoController.getPlayer(this.aliPlayerId)?.stop()
   }
 
   onHistoryPlayPositionUpdated() {
     Logger.info(this.tag, `onHistoryPlayPositionUpdated = ${this.historyPlayPosition}`)
     if (this.historyPlayPosition > 0) {
-      AliVideoController.getPlayer(this.aliPlayerId)?.seekTo(this.historyPlayPosition * 1000, SeekType.ACCURATE)
+      // AliVideoController.getPlayer(this.aliPlayerId)?.seekTo(this.historyPlayPosition * 1000, SeekType.ACCURATE)
       this.historyPlayPosition = 0
     }
   }
 
-  onPreparedListener: OnPreparedListener = {
+  /*onPreparedListener: OnPreparedListener = {
     onPrepared: () => {
       Logger.info(this.tag, 'onPrepared')
       this.videoDuration = AliVideoController.getPlayer(this.aliPlayerId)?.getDuration() ?? 0
@@ -175,7 +175,7 @@ export struct AliVideoComp {
       this.loadingProgress = 0
       this.loadingSpeed = 0
     }
-  }
+  }*/
 
   getDurationString(duration: number, currentDuration: number) {
     let durationString: string = TimeUtil.secondToTime(Math.floor(duration / 1000))
@@ -206,7 +206,7 @@ export struct AliVideoComp {
         controller: this.xComponentController
       })
         .onLoad(() => {
-          let player = AliVideoController.getPlayer(this.aliPlayerId)
+          /*let player = AliVideoController.getPlayer(this.aliPlayerId)
           if (player) {
             player.setOnPreparedListener(this.onPreparedListener)
             player.setOnInfoListener(this.onInfoListener)
@@ -215,7 +215,7 @@ export struct AliVideoComp {
             player.setSurfaceId(this.aliPlayerId.toString())
           } else {
             Logger.info(this.tag, `XC get player failed. playerId = ${this.aliPlayerId}`)
-          }
+          }*/
         })
         .aspectRatio(
           (this.videoWidth == 0 ? 16 : this.videoWidth) / (this.videoHeight == 0 ? 9 : this.videoHeight)
