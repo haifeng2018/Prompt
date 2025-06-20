@@ -1,0 +1,92 @@
+{
+  "module": {
+    "name": "entry",
+    "type": "entry",
+    "description": "$string:module_desc",
+    "mainElement": "EntryAbility",
+    "deviceTypes": [
+      "phone"
+    ],
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "pages": "$profile:main_pages",
+    "abilities": [
+      {
+        "name": "EntryAbility",
+        "srcEntry": "./ets/entryability/EntryAbility.ets",
+        "description": "$string:EntryAbility_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:EntryAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background",
+        "exported": true,
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home",
+              "entity.system.browsable"
+            ],
+            "actions": [
+              "ohos.want.action.home",
+              "ohos.want.action.viewData"
+            ],
+            "uris": [
+              {
+                "scheme": "https",
+                "host": "www.hok.scheme",
+                "port": "8080",
+                "path": "home",
+                "type": "text/*"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.INTERNET"
+      },
+      {
+        "name": "ohos.permission.READ_MEDIA",
+        "reason": "$string:riv_avatar_reason",
+        "usedScene": {
+          "when": "inuse"
+        }
+      }
+    ],
+    "extensionAbilities": [
+      {
+        "name": "EntryBackupAbility",
+        "srcEntry": "./ets/entrybackupability/EntryBackupAbility.ets",
+        "type": "backup",
+        "exported": false,
+        "metadata": [
+          {
+            "name": "ohos.extension.backup",
+            "resource": "$profile:backup_config"
+          }
+        ],
+      }
+    ],
+    "metadata": [
+      {
+        "name": "app_id",
+        "value": "5765880207854781313"
+      },
+      {
+        "name": "client_id",
+        "value": "1455802244237663104"
+      },
+      // 阿里云播放器SDK license 配置
+      {
+        "name": "com.aliyun.alivc_license.licensekey",
+        "value": "xo9y6PIyKimcH5R4Cf0262e3a3f6a43baa3875c080aad394d"
+      },
+      {
+        "name": "com.aliyun.alivc_license.licensefile",
+        "value": "alivc_license.crt"
+      }
+    ]
+  }
+}

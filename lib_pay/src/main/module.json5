@@ -1,0 +1,9 @@
+{
+  "module": {
+    "name": "lib_pay",
+    "type": "har",
+    "deviceTypes": [
+      "default"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "lib_core_model",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "Index.ets",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@ohos/crypto-js": "2.0.0"
+  }
+}
