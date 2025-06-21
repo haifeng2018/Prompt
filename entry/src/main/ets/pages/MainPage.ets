@@ -1,6 +1,4 @@
-// import { MeTabContent } from '../view/widget/MeTabContent';
 import { NavList, TabId } from '../model/HomeTabModel';
-// import { HomeTabContent } from '../view/widget/HomeTabContent';
 import App from 'lib_core_model/src/main/ets/App';
 import router from '@ohos.router';
 import { LoginData } from 'lib_core_model/src/main/ets/data/LoginData';
@@ -11,7 +9,7 @@ import { MeTabContent } from './me/MeTabContent';
 import RouterPath from 'lib_core_model/src/main/ets/util/RouterPath';
 import AppConfig from 'lib_core_model/src/main/ets/util/AppConfig';
 import Logger from 'lib_core_model/src/main/ets/util/Logger';
-import { StudyCenterTabContent } from './studycenter/StudyCenterTabContent';
+import { ToolsTabContent } from './studycenter/ToolsTabContent';
 import { lpx2fp } from 'lib_core_model/src/main/ets/util/DesignShow';
 import { TutorialTabContent } from './me/TutorialTabContent';
 
@@ -75,14 +73,12 @@ struct MainPage {
         .tabBar(this.TabBuilder(TabId.HOME))
 
         TabContent() {
-          TutorialTabContent({
-            loginData: $loginData
-          })
+          TutorialTabContent()
         }
         .tabBar(this.TabBuilder(TabId.TUTORIAL))
 
         TabContent() {
-          StudyCenterTabContent({
+          ToolsTabContent({
             loginData: $loginData
           })
         }

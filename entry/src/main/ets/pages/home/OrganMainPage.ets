@@ -1,14 +1,12 @@
 import { router } from '@kit.ArkUI';
-import App from 'lib_core_model/src/main/ets/App';
 import { LoginData } from 'lib_core_model/src/main/ets/data/LoginData';
 import AppConfig from 'lib_core_model/src/main/ets/util/AppConfig';
 import { Constants } from 'lib_core_model/src/main/ets/util/Constants';
 import { lpx2fp } from 'lib_core_model/src/main/ets/util/DesignShow';
 import Logger from 'lib_core_model/src/main/ets/util/Logger';
-import RouterPath from 'lib_core_model/src/main/ets/util/RouterPath';
 import { OrganNavList, OrganTabId } from '../../model/HomeTabModel';
 import { CourseCategoryContentComp } from '../course/component/CourseCategoryContentComp';
-import { StudyCenterTabContent } from '../studycenter/StudyCenterTabContent';
+import { ToolsTabContent } from '../studycenter/ToolsTabContent';
 import { OrganHomeTabContent } from './OrganHomeTabContent';
 
 @Entry
@@ -50,9 +48,8 @@ struct OrganMainPage {
         .tabBar(this.TabBuilder(OrganTabId.CATEGORY))
 
         TabContent() {
-          StudyCenterTabContent({
+          ToolsTabContent({
             loginData: $loginData,
-            showBack: true
           })
         }
         .tabBar(this.TabBuilder(OrganTabId.STUDY_CENTER))

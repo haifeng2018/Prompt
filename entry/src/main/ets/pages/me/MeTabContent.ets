@@ -14,6 +14,7 @@ import ToastUtils from 'lib_core_model/src/main/ets/util/ToastUtils'
 import MessageVM from 'lib_core_model/src/main/ets/vm/MessageVM'
 import UserVM from 'lib_core_model/src/main/ets/vm/UserVM'
 import PhoneUtil from '../../util/PhoneUtil'
+import { HomeToolBar } from '../../view/widget/HomeToolBar'
 
 @Preview
 @Component
@@ -133,7 +134,7 @@ export struct MeTabContent {
 
   build() {
     Column() {
-      this.titleBar()
+      HomeToolBar({ title: '我的' })
       SwipeRefreshLayout({
         refreshConfig: this.mRefreshConfig,
         itemLayout: (): void => this.content(),
@@ -157,47 +158,6 @@ export struct MeTabContent {
       ]
     })
     .justifyContent(FlexAlign.Start)
-  }
-
-  @Builder
-  titleBar() {
-    Stack() {
-      Column() {
-        Badge({
-          value: '',
-          style: {
-            badgeSize: 6,
-            badgeColor: this.mSignStatusCount === 1 ? $r('app.color.color_EB4F3A') : $r('app.color.transparent'),
-            borderColor: this.mSignStatusCount === 1 ? $r('app.color.color_EB4F3A') : $r('app.color.transparent')
-          }
-        }) {
-          Image($r('app.media.ic_home_notity'))
-            .width($r('app.string.lpx_40'))
-            .height($r('app.string.lpx_40'))
-        }
-        .width($r('app.string.lpx_40'))
-        .height($r('app.string.lpx_40'))
-        .margin({ top: $r('app.string.lpx_20') })
-
-        Text('消息')
-          .fontSize(lpx2fp(24))
-          .fontColor($r('app.color.color_333333'))
-          .margin({ top: $r('app.string.lpx_4') })
-      }
-    }
-    .width(Constants.FULL_PARENT)
-    .alignContent(Alignment.TopEnd)
-    .padding({
-      top: $r('app.string.lpx_100'),
-      right: $r('app.string.lpx_32')
-    })
-    .zIndex(1)
-    .onClick(() => {
-      App.get().pushUrl({
-        url: RouterPath.NOTIFICATION_PAGE,
-        params: {}
-      })
-    })
   }
 
   @Builder
