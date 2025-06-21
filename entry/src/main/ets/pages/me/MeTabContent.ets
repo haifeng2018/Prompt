@@ -104,27 +104,47 @@ export struct MeTabContent {
 
   handleBottomClick(index: number) {
     switch (index) {
-      case 1: // 我的优惠券
+      case 1: // 提词器会员
         App.get().pushUrl({
           url: RouterPath.MY_COUPON_PAGE
         })
         break
-      case 2: // 我的收藏
+      case 2: // 网页编辑台词
         App.get().pushUrl({
           url: RouterPath.MY_FAVORITE_PAGE
         })
         break
-      case 3: // 发票服务
+      case 3: // 专属蓝牙遥控器
         App.get().pushUrl({
           url: RouterPath.INVOICE_SERVICE_PAGE
         })
         break
-      case 4: // 意见反馈
+      case 4: // 激活码
         App.get().pushUrl({
           url: RouterPath.FEEDBACK_PAGE
         })
         break
-      case 5: // 设置
+      case 5: // 关于我们
+        App.get().pushUrl({
+          url: RouterPath.SETTING_PAGE
+        })
+        break
+      case 6: // 我的客服
+        App.get().pushUrl({
+          url: RouterPath.SETTING_PAGE
+        })
+        break
+      case 7: // 微信公众号
+        App.get().pushUrl({
+          url: RouterPath.SETTING_PAGE
+        })
+        break
+      case 8: // 分享好友
+        App.get().pushUrl({
+          url: RouterPath.SETTING_PAGE
+        })
+        break
+      case 9: // 设置
         App.get().pushUrl({
           url: RouterPath.SETTING_PAGE
         })
@@ -149,14 +169,6 @@ export struct MeTabContent {
     }
     .width(Constants.FULL_PARENT)
     .height(Constants.FULL_PARENT)
-    .linearGradient({
-      angle: 180,
-      colors: [
-        [$r('app.color.color_F7E8EB'), 0.0],
-        [$r('app.color.color_F8EEF6'), 0.26],
-        [$r('app.color.color_F8F9FD'), 1.0]
-      ]
-    })
     .justifyContent(FlexAlign.Start)
   }
 
@@ -168,10 +180,6 @@ export struct MeTabContent {
           this.head()
         }
         .margin({ top: $r('app.string.lpx_32') })
-
-        ListItem() {
-          this.ad()
-        }
 
         ListItem() {
           this.bottom()
@@ -190,86 +198,76 @@ export struct MeTabContent {
     .padding({ bottom: $r('app.string.lpx_20') })
   }
 
-  @Builder
-  head() {
-    Row() {
-      Image(this.mUserInfo?.headImg || $r('app.media.ic_avatar_place_holder'))
-        .width($r('app.string.lpx_140'))
-        .height($r('app.string.lpx_140'))
-        .border({
-          radius: $r('app.string.lpx_70'),
-          width: $r('app.string.lpx_2'),
-          color: $r('app.color.white')
-        })
+  @Builder head() {
+    Column() {
+      Row() {
+        Image(this.mUserInfo?.headImg || $r('app.media.ic_avatar_place_holder'))
+          .width($r('app.string.lpx_140'))
+          .height($r('app.string.lpx_140'))
+          .border({
+            radius: $r('app.string.lpx_70'),
+            width: $r('app.string.lpx_2'),
+            color: $r('app.color.white')
+          })
 
-      Column() {
-        Text(this.mUserInfo?.name)
-          .fontColor($r('app.color.color_333333'))
-          .fontSize(lpx2fp(36))
-          .fontWeight(FontWeight.Bold)
-          .maxLines(1)
-          .textOverflow({ overflow: TextOverflow.Ellipsis })
-        Text(PhoneUtil.blurPhone(this.mUserInfo.phone ?? 'undefined'))
-          .fontColor($r('app.color.color_333333'))
-          .fontSize(lpx2fp(28))
-          .maxLines(1)
-          .textOverflow({ overflow: TextOverflow.Ellipsis })
-          .margin({ top: $r('app.string.lpx_20') })
+        Column() {
+          Text(this.mUserInfo?.name)
+            .fontColor($r('app.color.color_333333'))
+            .fontSize(lpx2fp(36))
+            .fontWeight(FontWeight.Bold)
+            .maxLines(1)
+            .textOverflow({ overflow: TextOverflow.Ellipsis })
+          Text(`用户 ID:${this.mUserInfo?.openId ?? ''}`)
+            .fontColor($r('app.color.color_333333'))
+            .fontSize(lpx2fp(28))
+            .maxLines(1)
+            .textOverflow({ overflow: TextOverflow.Ellipsis })
+            .margin({ top: $r('app.string.lpx_20') })
+        }
+        .layoutWeight(1)
+        .alignItems(HorizontalAlign.Start)
+        .padding({ left: $r('app.string.lpx_20') })
+
+        Text('开通会员')
+          .height($r('app.string.lpx_68'))
+          .fontSize(lpx2fp(32))
+          .fontColor($r('app.color.white'))
+          .backgroundColor($r('app.color.color_accent'))
+          .borderRadius($r('app.string.lpx_34'))
+          .padding({
+            left: $r('app.string.lpx_16'),
+            right: $r('app.string.lpx_16')
+          })
       }
-      .layoutWeight(1)
-      .alignItems(HorizontalAlign.Start)
-      .padding({ left: $r('app.string.lpx_20') })
+      .width(Constants.FULL_PARENT)
+      .onClick(() => {
+        this.handleHeadClick()
+      })
+      Line().lineStyle()
+        .margin({ top : $r('app.string.lpx_40') })
 
-      Text('\ue88e')
-        .fontSize(lpx2fp(64))
-        .fontColor($r('app.color.color_999999'))
-        .fontFamily('myfont')
-    }
-    .width(Constants.FULL_PARENT)
-    .onClick(() => {
-      this.handleHeadClick()
-    })
-  }
-
-  @Builder
-  orderItem(image: Resource, title: string, index: number) {
-    Column() {
-      Image(image)
-        .width($r('app.string.lpx_48'))
-        .height($r('app.string.lpx_48'))
-      Text(title)
-        .fontColor($r('app.color.color_777777'))
-        .fontSize(lpx2fp(28))
-        .margin({ top: $r('app.string.lpx_8') })
-    }
-    .height(Constants.FULL_PARENT)
-    .layoutWeight(1)
-    .padding({ top: $r('app.string.lpx_16'), bottom: $r('app.string.lpx_16') })
-    .onClick(() => {
-      this.handleOrderClick(index)
-    })
-  }
-
-  @Builder
-  ad() {
-    if (this.mAdInfo?.url) {
-      Image(this.mAdInfo?.url)
+      Text('VIP 开通会员享受更多特权/专属服务')
         .width(Constants.FULL_PARENT)
-        .height($r('app.string.lpx_144'))
-        .backgroundColor($r('app.color.transparent'))
-        .borderRadius($r('app.string.lpx_8'))
-        .margin({ top: $r('app.string.lpx_32') })
+        .fontSize(lpx2fp(28))
+        .fontColor($r('app.color.color_333333'))
+        .margin({ top : $r('app.string.lpx_20') })
     }
+    .backgroundColor($r('app.color.color_80DDDDDD'))
+    .borderRadius($r('app.string.lpx_10'))
+    .padding($r('app.string.lpx_20'))
   }
 
-  @Builder
-  bottom() {
+  @Builder bottom() {
     Column() {
-      this.bottomItem($r('app.media.ic_me_coupon'), '我的优惠券', 1, true)
-      this.bottomItem($r('app.media.ic_me_fav'), '我的收藏', 2, true)
-      this.bottomItem($r('app.media.ic_me_invoice_service'), '发票服务', 3, true)
-      this.bottomItem($r('app.media.ic_me_feedback'), '意见反馈', 4, true)
-      this.bottomItem($r('app.media.ic_me_setting'), '设置', 5, false)
+      this.bottomItem($r('app.media.ic_me_coupon'), '提词器会员', 1, true)
+      this.bottomItem($r('app.media.ic_me_fav'), '网页编辑台词', 2, true)
+      this.bottomItem($r('app.media.ic_me_invoice_service'), '专属蓝牙遥控器', 3, true)
+      this.bottomItem($r('app.media.ic_me_feedback'), '激活码', 4, true)
+      this.bottomItem($r('app.media.ic_me_setting'), '关于我们', 5, true)
+      this.bottomItem($r('app.media.ic_me_setting'), '我的客服', 6, true)
+      this.bottomItem($r('app.media.ic_me_setting'), '微信公众号', 7, true)
+      this.bottomItem($r('app.media.ic_me_setting'), '分享好友', 8, true)
+      this.bottomItem($r('app.media.ic_me_setting'), '设置', 9, false)
     }
     .width(Constants.FULL_PARENT)
     .backgroundColor($r('app.color.white'))
@@ -277,8 +275,7 @@ export struct MeTabContent {
     .alignItems(HorizontalAlign.Start)
   }
 
-  @Builder
-  bottomItem(image: Resource, title: string, index: number, hasLine: boolean) {
+  @Builder bottomItem(image: Resource, title: string, index: number, hasLine: boolean) {
     Row() {
       Image(image)
         .width($r('app.string.lpx_48'))
@@ -288,10 +285,9 @@ export struct MeTabContent {
         .fontSize(lpx2fp(28))
         .layoutWeight(1)
         .margin({ left: $r('app.string.lpx_20') })
-      Text('\ue88e')
-        .fontSize(lpx2fp(32))
-        .fontColor($r('app.color.color_777777'))
-        .fontFamily('myfont')
+      Image($r('app.media.ic_right'))
+        .width($r('app.string.lpx_20'))
+        .height($r('app.string.lpx_20'))
     }
     .width(Constants.FULL_PARENT)
     .height($r('app.string.lpx_104'))
@@ -300,7 +296,9 @@ export struct MeTabContent {
       this.handleBottomClick(index)
     })
 
-    Line().lineStyle()
+    if (hasLine) {
+      Line().lineStyle()
+    }
   }
 }
 
