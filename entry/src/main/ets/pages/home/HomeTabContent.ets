@@ -10,6 +10,7 @@
  */
 
 import { router } from '@kit.ArkUI';
+import { it } from '@ohos/hypium';
 import LoadEndLayout from 'lib_common/src/main/ets/components/refresh/LoadEndLayout';
 import LoadMoreLayout from 'lib_common/src/main/ets/components/refresh/LoadMoreLayout';
 import { PageState } from 'lib_common/src/main/ets/components/refresh/PageState';
@@ -158,8 +159,7 @@ export struct HomeTabContent {
     .justifyContent(FlexAlign.Start)
   }
 
-  @Builder
-  titleBar() {
+  @Builder titleBar() {
     Stack() {
       Text('输入关键字')
         .height($r('app.string.lpx_80'))
@@ -212,88 +212,6 @@ export struct HomeTabContent {
         }
 
         ListItem() {
-          List() {
-            ForEach(this.adCategoryList, (item: AdInfo) => {
-              ListItem() {
-                Column() {
-                  Image(item.url)
-                    .alt($r('app.media.img_placeholder_horizontal'))
-                    .width($r('app.string.lpx_64'))
-                    .height($r('app.string.lpx_64'))
-
-                  Text(item.adTitle)
-                    .width(Constants.FULL_PARENT)
-                    .textAlign(TextAlign.Center)
-                    .fontColor($r('app.color.color_333333'))
-                    .fontSize(lpx2fp(24))
-                    .maxLines(1)
-                    .textOverflow({ overflow: TextOverflow.Ellipsis })
-                    .margin({ top: $r('app.string.lpx_5') })
-                    .padding($r('app.string.lpx_5'))
-                }
-                .width($r('app.string.lpx_136'))
-                .height(Constants.FULL_PARENT)
-                .justifyContent(FlexAlign.Center)
-                .alignItems(HorizontalAlign.Center)
-                .onClick(() => {
-                  AdActionUtil.toPage(item)
-                })
-              }
-              .width('20%')
-              .height(Constants.FULL_PARENT)
-            })
-          }
-          .listDirection(Axis.Horizontal)
-          .scrollBar(BarState.Off)
-          .height($r('app.string.lpx_136'))
-          .backgroundColor($r('app.color.white'))
-          .borderRadius($r('app.string.lpx_20'))
-        }
-        .margin({
-          top: $r('app.string.lpx_32'),
-          left: $r('app.string.lpx_32'),
-          right: $r('app.string.lpx_32')
-        })
-        .visibility((this.adCategoryList?.length ?? 0) > 0 ? Visibility.Visible : Visibility.None)
-
-        ListItem() {
-          this.topCourseAd()
-        }
-        .margin({
-          top:
-          $r('app.string.lpx_32'),
-          left: $r('app.string.lpx_32'),
-          right: $r('app.string.lpx_32')
-        })
-
-        ListItem() {
-          this.recommendTitle()
-        }
-        .margin({
-          top: $r('app.string.lpx_38'),
-          left: $r('app.string.lpx_32'),
-          right: $r('app.string.lpx_32')
-        })
-
-        ListItem() {
-          this.homeLevel()
-        }
-        .margin({
-          top: $r('app.string.lpx_16'),
-          left: $r('app.string.lpx_32'),
-          right: $r('app.string.lpx_32')
-        })
-
-        ListItem() {
-          this.homeLevelCourse()
-        }
-        .margin({
-          top: $r('app.string.lpx_16'),
-          left: $r('app.string.lpx_22'),
-          right: $r('app.string.lpx_22')
-        })
-
-        ListItem() {
           this.banner()
         }
         .margin({
@@ -303,19 +221,10 @@ export struct HomeTabContent {
         })
 
         ListItem() {
-          this.youMayLikeTitle()
-        }
-        .margin({
-          top: $r('app.string.lpx_16'),
-          left: $r('app.string.lpx_32'),
-          right: $r('app.string.lpx_32')
-        })
-
-        ListItem() {
           this.youMayLikeCourse()
         }
         .margin({
-          top: $r('app.string.lpx_16'),
+          top: $r('app.string.lpx_32'),
           left: $r('app.string.lpx_22'),
           right: $r('app.string.lpx_22')
         })
@@ -365,376 +274,16 @@ export struct HomeTabContent {
     })
   }
 
-  @Builder
-  itemLayout() {
-    List() {
-      ListItem() {
-        List() {
-          ForEach(this.adCategoryList, (item: AdInfo) => {
-            ListItem() {
-              Column() {
-                Image(item.url)
-                  .alt($r('app.media.img_placeholder_horizontal'))
-                  .width($r('app.string.lpx_64'))
-                  .height($r('app.string.lpx_64'))
-
-                Text(item.adTitle)
-                  .width(Constants.FULL_PARENT)
-                  .textAlign(TextAlign.Center)
-                  .fontColor($r('app.color.color_333333'))
-                  .fontSize(lpx2fp(24))
-                  .maxLines(1)
-                  .textOverflow({ overflow: TextOverflow.Ellipsis })
-                  .margin({ top: $r('app.string.lpx_5') })
-                  .padding($r('app.string.lpx_5'))
-              }
-              .width($r('app.string.lpx_136'))
-              .height(Constants.FULL_PARENT)
-              .justifyContent(FlexAlign.Center)
-              .alignItems(HorizontalAlign.Center)
-              .onClick(() => {
-                AdActionUtil.toPage(item)
-              })
-            }
-            .width('20%')
-            .height(Constants.FULL_PARENT)
-          })
-        }
-        .listDirection(Axis.Horizontal)
-        .scrollBar(BarState.Off)
-        .height($r('app.string.lpx_136'))
-        .backgroundColor($r('app.color.white'))
-        .borderRadius($r('app.string.lpx_20'))
-      }
-      .margin({
-        top: $r('app.string.lpx_32'),
-        left: $r('app.string.lpx_32'),
-        right: $r('app.string.lpx_32')
-      })
-      .visibility((this.adCategoryList?.length ?? 0) > 0 ? Visibility.Visible : Visibility.None)
-
-      ListItem() {
-        this.topCourseAd()
-      }
-      .margin({
-        top: $r('app.string.lpx_32'),
-        left: $r('app.string.lpx_32'),
-        right: $r('app.string.lpx_32')
-      })
-
-      ListItem() {
-        this.recommendTitle()
-      }
-      .margin({
-        top: $r('app.string.lpx_38'),
-        left: $r('app.string.lpx_32'),
-        right: $r('app.string.lpx_32')
-      })
-
-      ListItem() {
-        this.homeLevel()
-      }
-      .margin({
-        top: $r('app.string.lpx_16'),
-        left: $r('app.string.lpx_32'),
-        right: $r('app.string.lpx_32')
-      })
-
-      ListItem() {
-        this.homeLevelCourse()
-      }
-      .margin({
-        top: $r('app.string.lpx_16'),
-        left: $r('app.string.lpx_22'),
-        right: $r('app.string.lpx_22')
-      })
-
-      ListItem() {
-        this.banner()
-      }
-      .margin({
-        top: $r('app.string.lpx_32'),
-        left: $r('app.string.lpx_32'),
-        right: $r('app.string.lpx_32')
-      })
-
-      ListItem() {
-        this.youMayLikeTitle()
-      }
-      .margin({
-        top: $r('app.string.lpx_38'),
-        left: $r('app.string.lpx_32'),
-        right: $r('app.string.lpx_32')
-      })
-
-      ListItem() {
-        this.youMayLikeCourse()
-      }
-      .margin({
-        top: $r('app.string.lpx_16'),
-        left: $r('app.string.lpx_22'),
-        right: $r('app.string.lpx_22')
-      })
-    }
-    .width(Constants.FULL_PARENT)
-    .height(Constants.FULL_PARENT)
-    .listDirection(Axis.Vertical)
-    .edgeEffect(EdgeEffect.None)
-  }
-
-  @Builder
-  topCourseAd() {
-    Row() {
-      Column() {
-        Row() {
-          Column() {
-            Text('我的已购')
-              .width(Constants.FULL_PARENT)
-              .fontSize(lpx2fp(32))
-              .fontColor($r('app.color.color_333333'))
-              .fontWeight(FontWeight.Bold)
-              .textAlign(TextAlign.Start)
-
-            Text('从这里进入学习')
-              .width(Constants.FULL_PARENT)
-              .fontSize(lpx2fp(20))
-              .fontColor($r('app.color.color_999999'))
-              .textAlign(TextAlign.Start)
-              .margin({ top: $r('app.string.lpx_10') })
-          }
-          .layoutWeight(1)
-          .height(Constants.FULL_PARENT)
-          .justifyContent(FlexAlign.Center)
-          .padding({ left: $r('app.string.lpx_32') })
-
-          Image($r('app.media.img_my_purchased'))
-            .width($r('app.string.lpx_100'))
-            .height($r('app.string.lpx_100'))
-        }
-      }
-      .height(Constants.FULL_PARENT)
-      .layoutWeight(1)
-      .backgroundColor($r('app.color.white'))
-      .borderRadius($r('app.string.lpx_12'))
-      .justifyContent(FlexAlign.Center)
-      .padding({ right: $r('app.string.lpx_24') })
-      .onClick(() => {
-        if (this.loginData) {
-          App.get().pushUrl({
-            url: RouterPath.PURCHASED_COURSE_PAGE
-          })
-        } else {
-          App.get().pushUrl({
-            url: RouterPath.CODE_LOGIN_PAGE
-          }, router.RouterMode.Single)
-        }
-      })
-
-      Column() {
-        Row() {
-          Column() {
-            Text('全部课程')
-              .width(Constants.FULL_PARENT)
-              .fontSize(lpx2fp(32))
-              .fontColor($r('app.color.color_333333'))
-              .fontWeight(FontWeight.Bold)
-              .textAlign(TextAlign.Start)
-
-            Text('选好课 用获课')
-              .width(Constants.FULL_PARENT)
-              .fontSize(lpx2fp(20))
-              .fontColor($r('app.color.color_999999'))
-              .textAlign(TextAlign.Start)
-              .margin({ top: $r('app.string.lpx_10') })
-          }
-          .layoutWeight(1)
-          .height(Constants.FULL_PARENT)
-          .justifyContent(FlexAlign.Center)
-          .padding({ left: $r('app.string.lpx_32') })
-
-          Image($r('app.media.img_all_course'))
-            .width($r('app.string.lpx_100'))
-            .height($r('app.string.lpx_100'))
-        }
-      }
-      .height(Constants.FULL_PARENT)
-      .layoutWeight(1)
-      .backgroundColor($r('app.color.white'))
-      .borderRadius($r('app.string.lpx_12'))
-      .justifyContent(FlexAlign.Center)
-      .margin({ left: $r('app.string.lpx_30') })
-      .padding({ right: $r('app.string.lpx_24') })
-      .onClick(() => {
-        App.get().pushUrl({
-          url: RouterPath.COURSE_CATEGORY_PAGE
-        })
-      })
-    }
-    .width(Constants.FULL_PARENT)
-    .height($r('app.string.lpx_132'))
-  }
-
-  @Builder
-  recommendTitle() {
-    Row() {
-      Text('爆款推荐')
-        .layoutWeight(1)
-        .fontWeight(FontWeight.Bold)
-        .fontColor($r('app.color.color_333333'))
-        .fontSize(lpx2fp(36))
-
-      Text('查看全部')
-        .fontColor($r('app.color.color_666666'))
-        .fontSize(lpx2fp(28))
-
-      Image($r('app.media.ic_home_course_more'))
-        .width($r('app.string.lpx_20'))
-        .height($r('app.string.lpx_20'))
-        .margin({ left: $r('app.string.lpx_8') })
-    }
-    .width(Constants.FULL_PARENT)
-    .alignItems(VerticalAlign.Center)
-    .padding({
-      top: $r('app.string.lpx_16'),
-      bottom: $r('app.string.lpx_16')
-    })
-    .onClick(() => {
-      App.get().pushUrl({
-        url: RouterPath.HOME_RECOMMEND_MORE_PAGE,
-        params: {
-          data: 1000
-        }
-      })
-    })
-  }
-
-  @Builder
-  homeLevel() {
-    List() {
-      ForEach(this.homeLevelList?.[0]?.childs, (item: HomeLevelInfo, index: number) => {
-        ListItem() {
-          this.homeLevelCell(item, index)
-        }
-        .height(Constants.FULL_PARENT)
-      })
-    }
-    .listDirection(Axis.Horizontal)
-    .scrollBar(BarState.Off)
-    .height($r('app.string.lpx_80'))
-  }
-
-  @Builder
-  homeLevelCell(item: HomeLevelInfo, index: number) {
-    Row() {
-      Column() {
-        Text(item?.levelName ?? '')
-          .layoutWeight(1)
-          .fontColor($r('app.color.color_333333'))
-          .fontSize(this.popularityTabCheckedIndex === index ? lpx2fp(28) : lpx2fp(26))
-          .fontWeight(this.popularityTabCheckedIndex === index ? FontWeight.Bold : FontWeight.Normal)
-
-        Image($r('app.media.ic_tab_indicator'))
-          .height($r('app.string.lpx_10'))
-          .opacity(this.popularityTabCheckedIndex === index ? 1 : 0)
-      }
-      .justifyContent(FlexAlign.Center)
-      .padding({ left: $r('app.string.lpx_32'), right: $r('app.string.lpx_32') })
-
-      Divider()
-        .vertical(true)
-        .color($r('app.color.color_D9D9D9'))
-        .strokeWidth(`${$r('app.string.lpx_2')}`)
-        .height($r('app.string.lpx_30'))
-        .margin({ bottom: $r('app.string.lpx_10') })
-        .opacity(index === (this.homeLevelList?.[0]?.childs?.length ?? 0) - 1 ? 0 : 1)
-    }
-    .height(Constants.FULL_PARENT)
-    .padding({
-      top: $r('app.string.lpx_10'),
-      bottom: $r('app.string.lpx_10'),
-    })
-    .onClick(() => {
-      this.popularityTabCheckedIndex = index
-      this.sendHomeLevelCourseRequest(item?.id ?? '')
-    })
-  }
-
-  @Builder
-  homeLevelCourse() {
-    List() {
-      ForEach(this.homeLevelCourseList, (item: GoodsInfo) => {
-        ListItem() {
-          this.homeLevelCourseCell(item)
-        }
-        .width(Constants.FULL_PARENT)
-        .padding({ left: $r('app.string.lpx_10'), right: $r('app.string.lpx_10') })
-        .onClick(() => {
-          CourseDetailActionUtil.courseDetail(item.tenantVO?.tenantId ?? 0, item.onlineFlag, item.goodsId)
-        })
-      })
-    }
-    .width(Constants.FULL_PARENT)
-    .listDirection(Axis.Vertical)
-    .edgeEffect(EdgeEffect.None)
-    .lanes(2)
-  }
-
-  @Builder
-  homeLevelCourseCell(item: GoodsInfo) {
-    Column() {
-      Image(item?.coverUrlExtendVo?.centre)
-        .alt($r('app.media.img_placeholder_horizontal'))
-        .width(Constants.FULL_PARENT)
-        .height($r('app.string.lpx_332'))
-        .border({ radius: $r('app.string.lpx_12') })
-
-      Text(item.contentName)
-        .width(Constants.FULL_PARENT)
-        .height($r('app.string.lpx_90'))
-        .textAlign(TextAlign.Start)
-        .fontWeight(FontWeight.Bold)
-        .margin({ top: $r('app.string.lpx_16') })
-        .padding({ left: $r('app.string.lpx_16'), right: $r('app.string.lpx_16') })
-        .fontColor($r('app.color.color_333333'))
-        .fontSize(lpx2fp(28))
-        .maxLines(2)
-        .textOverflow({ overflow: TextOverflow.Ellipsis })
-
-      Row() {
-        CoursePriceLineStyleDisplayComp({
-          goodsInfo: item
-        })
-
-        Blank()
-
-        Text(GoodsShowUtil.getSaleCountText(item.salesVolume ?? 0))
-          .fontColor($r('app.color.color_999999'))
-          .fontSize(lpx2fp(24))
-      }
-      .width(Constants.FULL_PARENT)
-      .padding({ left: $r('app.string.lpx_16'), right: $r('app.string.lpx_16') })
-
-      TenantDisplayComp({ courseTenantInfo: item.tenantVO })
-        .margin($r('app.string.lpx_16'))
-    }
-    .width(Constants.FULL_PARENT)
-    .backgroundColor($r('app.color.white'))
-    .border({ radius: $r('app.string.lpx_12') })
-    .margin({ bottom: $r('app.string.lpx_16') })
-    .alignItems(HorizontalAlign.Start)
-  }
-
-  @Builder
-  banner() {
+  @Builder banner() {
     Swiper() {
-      ForEach(this.bannerList, (item: AdInfo) => {
-        Image(item.url)
+      ForEach(this.refreshConfig.data, (item: GoodsInfo) => {
+        Image(item?.coverUrl)
           .alt($r('app.media.img_placeholder_horizontal'))
           .width(Constants.FULL_PARENT)
           .height(Constants.FULL_PARENT)
           .borderRadius($r('app.string.lpx_12'))
           .onClick(() => {
-            AdActionUtil.toPage(item)
+            // AdActionUtil.toPage(item)
           })
       })
     }
@@ -760,34 +309,11 @@ export struct HomeTabContent {
     .curve(Curve.Linear)
   }
 
-  @Builder
-  youMayLikeTitle() {
-    Row() {
-      Text('猜你喜欢')
-        .layoutWeight(1)
-        .fontWeight(FontWeight.Bold)
-        .fontColor($r('app.color.color_333333'))
-        .fontSize(lpx2fp(36))
-    }
-    .width(Constants.FULL_PARENT)
-    .alignItems(VerticalAlign.Center)
-    .padding({
-      top: $r('app.string.lpx_16'),
-      bottom: $r('app.string.lpx_16')
-    })
-    .onClick(() => {
-      App.get().pushUrl({
-        url: RouterPath.HOME_RECOMMEND_MORE_PAGE
-      })
-    })
-  }
-
-  @Builder
-  youMayLikeCourse() {
+  @Builder youMayLikeCourse() {
     List() {
       ForEach(this.refreshConfig.data, (item: GoodsInfo) => {
         ListItem() {
-          this.youMayLikeCourseCell(item)
+          this.promptCell(item)
         }
         .width(Constants.FULL_PARENT)
         .padding({ left: $r('app.string.lpx_10'), right: $r('app.string.lpx_10') })
@@ -803,40 +329,76 @@ export struct HomeTabContent {
     .listDirection(Axis.Vertical)
     .edgeEffect(EdgeEffect.None)
     .nestedScroll({ scrollForward: NestedScrollMode.PARALLEL, scrollBackward: NestedScrollMode.PARALLEL })
-    .lanes(2)
   }
 
-  @Builder
-  youMayLikeCourseCell(item: GoodsInfo) {
+  @Builder promptCell(item: GoodsInfo) {
     Column() {
-      Image(item?.coverVerticalUrl)
-        .alt($r('app.media.img_placeholder_horizontal'))
-        .width(Constants.FULL_PARENT)
-        .height($r('app.string.lpx_332'))
-        .border({ radius: $r('app.string.lpx_12') })
-
       Row() {
         Text(item.contentName)
-          .width(Constants.FULL_PARENT)
+          .layoutWeight(1)
           .textAlign(TextAlign.Start)
           .fontWeight(FontWeight.Bold)
           .fontColor($r('app.color.color_333333'))
           .fontSize(lpx2fp(28))
           .maxLines(2)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
+        Image($r('app.media.ic_home_course_cell_more'))
+          .width($r('app.string.lpx_50'))
+          .height($r('app.string.lpx_50'))
+          .borderRadius($r('app.string.lpx_12'))
+          .onClick(() => {
+            // AdActionUtil.toPage(item)
+          })
       }
-      .alignItems(VerticalAlign.Top)
+      .alignItems(VerticalAlign.Center)
       .width(Constants.FULL_PARENT)
-      .height($r('app.string.lpx_90'))
+      .height($r('app.string.lpx_68'))
       .margin({ top: $r('app.string.lpx_16') })
       .padding({ left: $r('app.string.lpx_16'), right: $r('app.string.lpx_16') })
 
+      Text("“万物得其本者生，百事得其道者成。”从一场对话，到一个机制，再到一种精神，中国中亚关系在短短几年间大踏步前行，用这句古语探寻它的历程颇为贴切。\n" +
+        "一场对话，举行于2022年1月，中国同中亚五国建交30周年之际。习近平主席在视频峰会上提到要办好中国同中亚五国之间的一系列对话合作机制，新的探索掀开历史一页。\n" +
+        "一个机制，建立于2023年5月的西安，首届中国—中亚峰会上，习近平主席同中亚五国元首宣布，正式成立中国—中亚元首会晤机制。\n" +
+        "一种精神，就诞生于当下，仲夏时节的哈萨克斯坦阿斯塔纳。今年6月17日，第二届中国—中亚峰会如期举行。")
+        .width(Constants.FULL_PARENT)
+        .padding({ left: $r('app.string.lpx_16'), right: $r('app.string.lpx_16') })
+        .textAlign(TextAlign.Start)
+        .fontColor($r('app.color.color_999999'))
+        .fontSize(lpx2fp(24))
+        .maxLines(2)
+        .textOverflow({ overflow: TextOverflow.Ellipsis })
+
       Row() {
-        CoursePriceLineStyleDisplayComp({
-          goodsInfo: item
+        Text('2025-06-21 16:45# 99个字/录00:25')
+          .layoutWeight(1)
+          .padding({ left: $r('app.string.lpx_16'), right: $r('app.string.lpx_16') })
+          .textAlign(TextAlign.Start)
+          .fontColor($r('app.color.color_666666'))
+          .fontSize(lpx2fp(24))
+          .maxLines(1)
+          .textOverflow({ overflow: TextOverflow.Ellipsis })
+        Button({ type: ButtonType.Normal, stateEffect: true }) {
+          Row() {
+            Image($r('app.media.ic_course_try_play'))
+              .width($r('app.string.lpx_30'))
+              .height($r('app.string.lpx_30'))
+              .margin({ left: $r('app.string.lpx_10') })
+            Text('开始提词')
+              .fontColor($r('app.color.color_0091FF'))
+              .fontSize(lpx2fp(24))
+              .margin({ left: $r('app.string.lpx_10') })
+          }.alignItems(VerticalAlign.Center)
+        }
+        .backgroundColor($r('app.color.white'))
+        .border({
+          color: $r('app.color.color_0091FF'),
+          width: $r('app.string.lpx_2'),
+          radius: $r('app.string.lpx_8')
         })
+        .padding($r('app.string.lpx_10'))
       }
-      .width(Constants.FULL_PARENT)
+      .height($r('app.string.lpx_68'))
+      .margin({ top: $r('app.string.lpx_16') })
       .padding({ left: $r('app.string.lpx_16'), right: $r('app.string.lpx_16') })
     }
     .width(Constants.FULL_PARENT)
