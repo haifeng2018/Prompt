@@ -33,6 +33,7 @@ import ToastUtils from 'lib_core_model/src/main/ets/util/ToastUtils';
 import HomeVM from 'lib_core_model/src/main/ets/vm/HomeVM';
 import AdActionUtil from '../../util/action/AdActionUtil';
 import CourseDetailActionUtil from '../../util/action/CourseDetailActionUtil';
+import { HomeToolBar } from '../../view/widget/HomeToolBar';
 import { CoursePriceLineStyleDisplayComp } from '../common/CoursePriceDisplayComp';
 import { TenantDisplayComp } from '../common/TenantDisplayComp';
 
@@ -144,66 +145,54 @@ export struct HomeTabContent {
 
   build() {
     Column() {
+      HomeToolBar({
+        title: '录制提词器',
+        titleActionIcon: $r('app.media.ic_home_course_cell_more')
+      })
       this.titleBar()
       this.content()
     }
     .width(Constants.FULL_PARENT)
     .height(Constants.FULL_PARENT)
-    .linearGradient({
-      angle: 180,
-      colors: [
-        [$r('app.color.color_F7E8EB'), 0.0],
-        [$r('app.color.color_F8EEF6'), 0.26],
-        [$r('app.color.color_F8F9FD'), 1.0]
-      ]
-    })
+    .backgroundColor($r('app.color.color_F9F9F9'))
     .justifyContent(FlexAlign.Start)
   }
 
   @Builder
   titleBar() {
-    Row() {
-      Stack() {
-        Image($r('app.media.ic_home_search'))
-          .width($r('app.string.lpx_32'))
-          .height($r('app.string.lpx_32'))
-          .margin({ left: $r('app.string.lpx_24') })
-
-        Swiper() {
-          ForEach(this.hotSearchKeys, (item: SearchTrendInfo) => {
-            Text(item.searchValue)
-              .width(Constants.FULL_PARENT)
-              .height(Constants.FULL_PARENT)
-              .fontSize(lpx2fp(24))
-              .fontColor($r('app.color.color_999999'))
-              .maxLines(1)
-              .textOverflow({ overflow: TextOverflow.Ellipsis })
-              .padding({ left: $r('app.string.lpx_72'), right: $r('app.string.lpx_72') })
-              .onClick(() => {
-                App.get().pushUrl({
-                  url: RouterPath.SEARCH_PAGE,
-                  params: {
-                    data: item.searchValue
-                  },
-                })
-              })
+    Stack() {
+      Text('输入关键字')
+        .height($r('app.string.lpx_80'))
+        .width(Constants.FULL_PARENT)
+        .padding({ left: $r('app.string.lpx_20') })
+        .backgroundColor($r('app.color.white'))
+        .borderRadius($r('app.string.lpx_16'))
+        .fontSize(lpx2fp(24))
+        .fontColor($r('app.color.color_999999'))
+        .maxLines(1)
+        .textOverflow({ overflow: TextOverflow.Ellipsis })
+        .onClick(() => {
+          App.get().pushUrl({
+            url: RouterPath.SEARCH_PAGE,
+            params: {
+            },
           })
-        }
-        .vertical(true)
-        .autoPlay(true)
-        .indicator(false)
-        .interval(3000)
-        .height($r('app.string.lpx_64'))
-        .margin({ left: $r('app.string.lpx_10') })
-      }
-      .alignContent(Alignment.Start)
-      .layoutWeight(1)
-      .backgroundColor($r('app.color.color_F9F9F9'))
-      .borderRadius($r('app.string.lpx_32'))
-      .margin({ left: $r('app.string.lpx_32'), right: $r('app.string.lpx_30') })
+        })
+
+      Image($r('app.media.ic_home_search'))
+        .width($r('app.string.lpx_32'))
+        .height($r('app.string.lpx_32'))
+        .margin({ right: $r('app.string.lpx_20') })
     }
     .width(Constants.FULL_PARENT)
-    .padding({ top: $r('app.string.lpx_100') })
+    .alignContent(Alignment.End)
+    .padding({
+      top: $r('app.string.lpx_10'),
+      bottom: $r('app.string.lpx_10'),
+      left: $r('app.string.lpx_32'),
+      right: $r('app.string.lpx_32')
+    })
+    .margin({ top: $r('app.string.lpx_10') })
     .zIndex(1)
   }
 

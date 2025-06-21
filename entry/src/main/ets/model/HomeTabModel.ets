@@ -18,7 +18,8 @@ export interface NavItem {
 
 export enum TabId {
   HOME,
-  STUDY_CENTER,
+  TUTORIAL,
+  TOOLS,
   ME
 }
 
@@ -36,10 +37,16 @@ export const NavList: NavItem[] = [
     id: TabId.HOME
   },
   {
+    icon: $r('app.media.ic_course_normal'),
+    icon_selected: $r('app.media.ic_course_checked'),
+    text: $r('app.string.tab_tutorial'),
+    id: TabId.TUTORIAL
+  },
+  {
     icon: $r('app.media.ic_study_center_normal'),
     icon_selected: $r('app.media.ic_study_center_checked'),
-    text: $r('app.string.tab_study_center'),
-    id: TabId.STUDY_CENTER
+    text: $r('app.string.tab_tools'),
+    id: TabId.TOOLS
   },
   {
     icon: $r('app.media.ic_me_normal'),

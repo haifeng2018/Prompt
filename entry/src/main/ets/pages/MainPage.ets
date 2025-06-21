@@ -13,6 +13,7 @@ import AppConfig from 'lib_core_model/src/main/ets/util/AppConfig';
 import Logger from 'lib_core_model/src/main/ets/util/Logger';
 import { StudyCenterTabContent } from './studycenter/StudyCenterTabContent';
 import { lpx2fp } from 'lib_core_model/src/main/ets/util/DesignShow';
+import { TutorialTabContent } from './me/TutorialTabContent';
 
 @Entry
 @Component
@@ -74,11 +75,18 @@ struct MainPage {
         .tabBar(this.TabBuilder(TabId.HOME))
 
         TabContent() {
+          TutorialTabContent({
+            loginData: $loginData
+          })
+        }
+        .tabBar(this.TabBuilder(TabId.TUTORIAL))
+
+        TabContent() {
           StudyCenterTabContent({
             loginData: $loginData
           })
         }
-        .tabBar(this.TabBuilder(TabId.STUDY_CENTER))
+        .tabBar(this.TabBuilder(TabId.TOOLS))
 
         TabContent() {
           if (this.loginData?.token != null) {

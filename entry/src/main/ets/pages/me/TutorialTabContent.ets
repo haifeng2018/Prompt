@@ -17,7 +17,7 @@ import PhoneUtil from '../../util/PhoneUtil'
 
 @Preview
 @Component
-export struct MeTabContent {
+export struct TutorialTabContent {
   @State mRefreshConfig: RefreshConfig<object> = new RefreshConfig<object>()
   @Link @Watch('sendUserInfoRequest') loginData: LoginData;
   @State mUserInfo: UserInfo = new UserInfo()
@@ -208,16 +208,6 @@ export struct MeTabContent {
           this.head()
         }
         .margin({ top: $r('app.string.lpx_32') })
-
-        ListItem() {
-          this.ad()
-        }
-
-        ListItem() {
-          this.bottom()
-        }
-        .margin({ top: $r('app.string.lpx_32') })
-
       }
       .width(Constants.FULL_PARENT)
       .height(Constants.FULL_PARENT)
@@ -230,8 +220,7 @@ export struct MeTabContent {
     .padding({ bottom: $r('app.string.lpx_20') })
   }
 
-  @Builder
-  head() {
+  @Builder head() {
     Row() {
       Image(this.mUserInfo?.headImg || $r('app.media.ic_avatar_place_holder'))
         .width($r('app.string.lpx_140'))
@@ -271,84 +260,5 @@ export struct MeTabContent {
     })
   }
 
-  @Builder
-  orderItem(image: Resource, title: string, index: number) {
-    Column() {
-      Image(image)
-        .width($r('app.string.lpx_48'))
-        .height($r('app.string.lpx_48'))
-      Text(title)
-        .fontColor($r('app.color.color_777777'))
-        .fontSize(lpx2fp(28))
-        .margin({ top: $r('app.string.lpx_8') })
-    }
-    .height(Constants.FULL_PARENT)
-    .layoutWeight(1)
-    .padding({ top: $r('app.string.lpx_16'), bottom: $r('app.string.lpx_16') })
-    .onClick(() => {
-      this.handleOrderClick(index)
-    })
-  }
-
-  @Builder
-  ad() {
-    if (this.mAdInfo?.url) {
-      Image(this.mAdInfo?.url)
-        .width(Constants.FULL_PARENT)
-        .height($r('app.string.lpx_144'))
-        .backgroundColor($r('app.color.transparent'))
-        .borderRadius($r('app.string.lpx_8'))
-        .margin({ top: $r('app.string.lpx_32') })
-    }
-  }
-
-  @Builder
-  bottom() {
-    Column() {
-      this.bottomItem($r('app.media.ic_me_coupon'), '我的优惠券', 1, true)
-      this.bottomItem($r('app.media.ic_me_fav'), '我的收藏', 2, true)
-      this.bottomItem($r('app.media.ic_me_invoice_service'), '发票服务', 3, true)
-      this.bottomItem($r('app.media.ic_me_feedback'), '意见反馈', 4, true)
-      this.bottomItem($r('app.media.ic_me_setting'), '设置', 5, false)
-    }
-    .width(Constants.FULL_PARENT)
-    .backgroundColor($r('app.color.white'))
-    .borderRadius($r('app.string.lpx_12'))
-    .alignItems(HorizontalAlign.Start)
-  }
-
-  @Builder
-  bottomItem(image: Resource, title: string, index: number, hasLine: boolean) {
-    Row() {
-      Image(image)
-        .width($r('app.string.lpx_48'))
-        .height($r('app.string.lpx_48'))
-      Text(title)
-        .fontColor($r('app.color.color_333333'))
-        .fontSize(lpx2fp(28))
-        .layoutWeight(1)
-        .margin({ left: $r('app.string.lpx_20') })
-      Text('\ue88e')
-        .fontSize(lpx2fp(32))
-        .fontColor($r('app.color.color_777777'))
-        .fontFamily('myfont')
-    }
-    .width(Constants.FULL_PARENT)
-    .height($r('app.string.lpx_104'))
-    .padding({ left: $r('app.string.lpx_20'), right: $r('app.string.lpx_20') })
-    .onClick(() => {
-      this.handleBottomClick(index)
-    })
-
-    Line().lineStyle()
-  }
-}
-
-@Extend(Line)
-function lineStyle() {
-  .width(Constants.FULL_PARENT)
-  .height($r('app.string.lpx_1'))
-  .backgroundColor($r('app.color.color_EFEFEF'))
-  .padding({ left: $r('app.string.lpx_1'), right: $r('app.string.lpx_1') })
 }
 

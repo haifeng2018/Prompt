@@ -65,8 +65,12 @@
       "value": "首页"
     },
     {
-      "name": "tab_study_center",
-      "value": "学习中心"
+      "name": "tab_tutorial",
+      "value": "教程"
+    },
+    {
+      "name": "tab_tools",
+      "value": "工具"
     },
     {
       "name": "tab_category",

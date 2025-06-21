@@ -168,7 +168,7 @@ struct CodeLoginPage {
         TextInput({ placeholder: '输入验证码' })
           .inputStyle()
           .layoutWeight(1)
-          .maxLength(4)
+          .maxLength(6)
           .type(InputType.Number)
           .onChange((value: string) => {
             this.mCode = value;
