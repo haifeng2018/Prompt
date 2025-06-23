@@ -32,6 +32,7 @@ export default class RouterPath {
   static readonly WATCH_HISTORY_PAGE = 'pages/studycenter/WatchHistoryPage';
   static readonly MY_COUPON_PAGE = 'pages/me/MyCouponPage';
   static readonly MY_FAVORITE_PAGE = 'pages/me/MyFavoritePage';
+  static readonly MEMBER_CENTER_PAGE = 'pages/me/MemberCenterPage';
   static readonly SETTING_PAGE = 'pages/me/SettingPage';
   static readonly SERVICE_CENTER_PAGE = 'pages/ServiceCenterPage';
   static readonly FEEDBACK_PAGE = 'pages/me/FeedbackPage';

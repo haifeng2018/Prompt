@@ -106,7 +106,7 @@ export struct MeTabContent {
     switch (index) {
       case 1: // 提词器会员
         App.get().pushUrl({
-          url: RouterPath.MY_COUPON_PAGE
+          url: RouterPath.MEMBER_CENTER_PAGE
         })
         break
       case 2: // 网页编辑台词
@@ -237,6 +237,11 @@ export struct MeTabContent {
           .padding({
             left: $r('app.string.lpx_16'),
             right: $r('app.string.lpx_16')
+          })
+          .onClick(() => {
+            App.get().pushUrl({
+              url: RouterPath.MEMBER_CENTER_PAGE
+            })
           })
       }
       .width(Constants.FULL_PARENT)
