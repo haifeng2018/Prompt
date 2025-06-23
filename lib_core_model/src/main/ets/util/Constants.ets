@@ -27,6 +27,7 @@ export class Constants {
   static readonly LOGIN_TOKEN_KEY = 'LOGIN_TOKEN_KEY';
   static readonly RECOMMEND_TOGGLE_KEY = 'RECOMMEND_TOGGLE_KEY';
   static readonly PUSH_SOUND_TOGGLE_KEY = 'PUSH_SOUND_TOGGLE_KEY';
+  static readonly BLUETOOTH_REMOTE_CTL_TOGGLE_KEY = 'BLUETOOTH_REMOTE_CTL_TOGGLE_KEY';
   static readonly PUSH_VIBRATE_TOGGLE_KEY = 'PUSH_VIBRATE_TOGGLE_KEY';
   static readonly DATA = 'data';
   static readonly TENANT_ID = 'tenantId';

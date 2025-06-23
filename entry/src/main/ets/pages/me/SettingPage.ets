@@ -1,5 +1,4 @@
 import { Constants } from 'lib_core_model/src/main/ets/util/Constants'
-import font from '@ohos.font'
 import { ToolBar } from '../../view/widget/ToolBar'
 import App from 'lib_core_model/src/main/ets/App'
 import RouterPath from 'lib_core_model/src/main/ets/util/RouterPath'
@@ -12,6 +11,8 @@ import LoadingDialog from '../../view/dialog/LoadingDialog'
 import AppConfig from 'lib_core_model/src/main/ets/util/AppConfig'
 import { AuthVM } from 'lib_core_model/src/main/ets/vm/AuthVM'
 import { UserInfo } from 'lib_core_model/src/main/ets/data/UserInfo'
+import PreferenceUtil from 'lib_core_model/src/main/ets/util/PreferenceUtil'
+import LanguageSelectDialog from '../../view/dialog/LanguageSelectDialog'
 
 @Entry
 @Component
@@ -19,6 +20,16 @@ struct SettingPage {
   @State loginData: LoginData = new LoginData()
   @State userInfo: UserInfo = new UserInfo()
   @State appCacheSize: string = ''
+  @State bluetoothRemoteCtrlToggle: boolean = true
+  select: number = 0
+  feedTypes: string[] = ['中文', '英文']
+  @State feedType: number = -1
+  @State feedTypeName: string = '中文'
+
+  saveBluetoothRemoteCtrlToggle() {
+    PreferenceUtil.put(Constants.BLUETOOTH_REMOTE_CTL_TOGGLE_KEY,this.bluetoothRemoteCtrlToggle)
+  }
+
   private loadingDialogCtrl: CustomDialogController = new CustomDialogController({
     builder: LoadingDialog(
       {}),
@@ -28,11 +39,21 @@ struct SettingPage {
     autoCancel: false
   });
 
+  modifyBindPhoneDlgController: CustomDialogController = new CustomDialogController({
+    builder: LanguageSelectDialog(
+      {
+        confirm:() => {
+        },
+        cancel:() => {
+        }
+      }),
+    alignment: DialogAlignment.Bottom,
+    offset: { dx: 0, dy: 0 },
+    customStyle: true,
+    autoCancel: true
+  });
+
   aboutToAppear() {
-    font.registerFont({
-      familyName: 'myfont',
-      familySrc: '/fonts/iconfont.ttf'
-    })
     this.getAppCacheSize()
     AppConfig.getLoginData().then((resultData: LoginData) => {
       this.loginData = resultData
@@ -81,34 +102,43 @@ struct SettingPage {
   content() {
     List() {
       ListItem() {
-        this.settingCell('账号设置', false, true)
+        this.languageSettingCell()
       }
       .width(Constants.FULL_PARENT)
       .onClick(() => {
-        App.get().pushUrl({
-          url: RouterPath.ACCOUNT_SETTING_PAGE,
-          params: {
-            token: this.loginData.token,
-            userInfo: this.userInfo
+        // this.modifyBindPhoneDlgController.open()
+        TextPickerDialog.show({
+          range: this.feedTypes,
+          selected: this.select,
+          alignment: DialogAlignment.Bottom,
+          canLoop: false,
+          defaultPickerItemHeight: 40,
+          onAccept: (result: TextPickerResult) => {
+            this.select = result.index as number
+            this.feedTypeName = result.value as string
+            this.feedType = result.index as number
+          },
+          onCancel: () => {
+          },
+          onChange: (value: TextPickerResult) => {
           }
         })
       })
 
       ListItem() {
-        this.settingCell('个人资料', false, false)
+        this.bindPhoneCell()
       }
       .width(Constants.FULL_PARENT)
       .onClick(() => {
         App.get().pushUrl({
-          url: RouterPath.EDIT_PROFILE_PAGE
+          url: RouterPath.BIND_PHONE_PAGE
         })
       })
 
       ListItem() {
-        this.settingCell('隐私设置', false, true)
+        this.settingCell('用户协议', false, true)
       }
       .width(Constants.FULL_PARENT)
-      .margin({ top: $r('app.string.lpx_32') })
       .onClick(() => {
         App.get().pushUrl({
           url: RouterPath.PRIVACY_SETTING_PAGE
@@ -116,7 +146,7 @@ struct SettingPage {
       })
 
       ListItem() {
-        this.settingCell('推送设置', false, true)
+        this.settingCell('隐私政策', false, true)
       }
       .width(Constants.FULL_PARENT)
       .onClick(() => {
@@ -126,7 +156,25 @@ struct SettingPage {
       })
 
       ListItem() {
-        this.settingCell('清除缓存', true, true)
+        this.settingCell('权限设置', false, true)
+      }
+      .width(Constants.FULL_PARENT)
+      .onClick(() => {
+
+      })
+
+      ListItem() {
+        this.settingCell('用户注销', false, false)
+      }
+      .width(Constants.FULL_PARENT)
+      .onClick(() => {
+        App.get().pushUrl({
+          url: RouterPath.ABOUT_US_PAGE
+        })
+      })
+
+      ListItem() {
+        this.settingCell('清除缓存', true, false)
       }
       .width(Constants.FULL_PARENT)
       .onClick(() => {
@@ -136,13 +184,11 @@ struct SettingPage {
       })
 
       ListItem() {
-        this.settingCell('关于我们', false, false)
+        this.bluetoothRemoteControlCell()
       }
       .width(Constants.FULL_PARENT)
       .onClick(() => {
-        App.get().pushUrl({
-          url: RouterPath.ABOUT_US_PAGE
-        })
+        this.bluetoothRemoteCtrlToggle = !this.bluetoothRemoteCtrlToggle
       })
 
       ListItem() {
@@ -166,8 +212,55 @@ struct SettingPage {
     .margin({ top: $r('app.string.lpx_32') })
   }
 
-  @Builder
-  settingCell(title: string, isCleanCell: boolean, hasLine: boolean) {
+  @Builder languageSettingCell() {
+    Column() {
+      Row() {
+        Text('语言设置')
+          .fontColor($r('app.color.color_333333'))
+          .fontSize(lpx2fp(28))
+        Blank()
+        Text(this.feedTypeName)
+          .fontColor($r('app.color.color_333333'))
+          .fontSize(lpx2fp(24))
+          .margin({ right: $r('app.string.lpx_20') })
+        Image($r('app.media.ic_right'))
+          .width($r('app.string.lpx_20'))
+          .height($r('app.string.lpx_20'))
+      }
+      .width(Constants.FULL_PARENT)
+      .height($r('app.string.lpx_104'))
+      .backgroundColor($r('app.color.white'))
+      .padding({ left: $r('app.string.lpx_32'), right: $r('app.string.lpx_32') })
+
+      this.lineCell()
+    }
+  }
+
+  @Builder bindPhoneCell() {
+    Column() {
+      Row() {
+        Text('绑定手机号')
+          .fontColor($r('app.color.color_333333'))
+          .fontSize(lpx2fp(28))
+        Blank()
+        Text('未绑定')
+          .fontColor($r('app.color.color_0091FF'))
+          .fontSize(lpx2fp(24))
+          .margin({ right: $r('app.string.lpx_20') })
+        Image($r('app.media.ic_right'))
+          .width($r('app.string.lpx_20'))
+          .height($r('app.string.lpx_20'))
+      }
+      .width(Constants.FULL_PARENT)
+      .height($r('app.string.lpx_104'))
+      .backgroundColor($r('app.color.white'))
+      .padding({ left: $r('app.string.lpx_32'), right: $r('app.string.lpx_32') })
+
+      this.lineCell()
+    }
+  }
+
+  @Builder settingCell(title: string, isCleanCell: boolean, hasLine: boolean) {
     Column() {
       Row() {
         Text(title)
@@ -180,10 +273,9 @@ struct SettingPage {
             .fontSize(lpx2fp(24))
             .margin({ right: $r('app.string.lpx_20') })
         }
-        Text('\ue88e')
-          .fontSize(lpx2fp(32))
-          .fontColor($r('app.color.color_777777'))
-          .fontFamily('myfont')
+        Image($r('app.media.ic_right'))
+          .width($r('app.string.lpx_20'))
+          .height($r('app.string.lpx_20'))
       }
       .width(Constants.FULL_PARENT)
       .height($r('app.string.lpx_104'))
@@ -196,8 +288,31 @@ struct SettingPage {
     }
   }
 
-  @Builder
-  lineCell() {
+  @Builder bluetoothRemoteControlCell() {
+    Column() {
+      Row() {
+        Text('专属蓝牙遥控器')
+          .fontColor($r('app.color.color_333333'))
+          .fontSize(lpx2fp(28))
+        Blank()
+        Toggle({ type: ToggleType.Switch, isOn: this.bluetoothRemoteCtrlToggle })
+          .selectedColor($r('app.color.color_E94E39'))
+          .switchPointColor($r('app.color.white'))
+          .onChange((isOn: boolean) => {
+            this.bluetoothRemoteCtrlToggle = isOn
+            this.saveBluetoothRemoteCtrlToggle()
+          })
+      }
+      .width(Constants.FULL_PARENT)
+      .height($r('app.string.lpx_104'))
+      .backgroundColor($r('app.color.white'))
+      .padding({ left: $r('app.string.lpx_32'), right: $r('app.string.lpx_32') })
+
+      this.lineCell()
+    }
+  }
+
+  @Builder lineCell() {
     Row() {
       Line()
         .width(Constants.FULL_PARENT)

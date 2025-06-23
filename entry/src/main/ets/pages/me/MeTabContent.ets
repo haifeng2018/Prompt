@@ -17,6 +17,10 @@ import { HomeToolBar } from '../../view/widget/HomeToolBar'
 import { router } from '@kit.ArkUI'
 import CommonTipDialog from '../../view/dialog/CommonTipDialog'
 import ClipboardUtil from 'lib_common/src/main/ets/util/ClipboardUtil'
+import { common } from '@kit.AbilityKit'
+import { systemShare } from '@kit.ShareKit'
+import { uniformTypeDescriptor } from '@kit.ArkData'
+import Logger from 'lib_core_model/src/main/ets/util/Logger'
 
 @Preview
 @Component
@@ -26,6 +30,30 @@ export struct MeTabContent {
   @State mUserInfo: UserInfo = new UserInfo()
   @State mAdInfo: AdInfo = new AdInfo()
   @State mSignStatusCount: number = 0
+
+  private async share() {
+    let context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    // ...
+    // To construct ShareData, you need to configure a valid data message
+    let shareData: systemShare.SharedData = new systemShare.SharedData({
+      // The type of data shared is a link
+      utd: uniformTypeDescriptor.UniformDataType.HYPERLINK,
+      // The shared App Linking link is replaced with the real address here
+      content: `https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/share-utd-link#section195231314185618`,
+      // ...
+    });
+    // The sharing panel is displayed
+    let controller: systemShare.ShareController = new systemShare.ShareController(shareData);
+    try {
+      controller.show(context, {
+        previewMode: systemShare.SharePreviewMode.DEFAULT,
+        selectionMode: systemShare.SelectionMode.SINGLE
+      })
+      // ...
+    } catch (err) {
+      Logger.error('MeTabContent', `Failed to Share link. code: ${err.code}, message: ${err.message}`)
+    }
+  }
 
   pcEditTipDlgController: CustomDialogController = new CustomDialogController({
     builder: CommonTipDialog(
@@ -123,43 +151,6 @@ export struct MeTabContent {
     })
   }
 
-  handleOrderClick(index: number) {
-    switch (index) {
-      case 1: // 未支付
-        App.get().pushUrl({
-          url: RouterPath.MY_ORDER_PAGE,
-          params: {
-            page_position: 1
-          }
-        })
-        break
-      case 2: // 待评价
-        App.get().pushUrl({
-          url: RouterPath.MY_ORDER_PAGE,
-          params: {
-            page_position: 4
-          }
-        })
-        break
-      case 3: // 已完成
-        App.get().pushUrl({
-          url: RouterPath.MY_ORDER_PAGE,
-          params: {
-            page_position: 2
-          }
-        })
-        break
-      case 4: // 全部订单
-        App.get().pushUrl({
-          url: RouterPath.MY_ORDER_PAGE,
-          params: {
-            page_position: 0
-          }
-        })
-        break
-    }
-  }
-
   handleBottomClick(index: number) {
     switch (index) {
       case 1: // 提词器会员
@@ -196,9 +187,7 @@ export struct MeTabContent {
         this.wechatTipDlgController.open()
         break
       case 8: // 分享好友
-        App.get().pushUrl({
-          url: RouterPath.SETTING_PAGE
-        })
+        this.share()
         break
       case 9: // 设置
         App.get().pushUrl({

@@ -66,7 +66,8 @@
     "pages/me/NotInvoicedPage",
     "pages/me/ViewInvoicePage",
     "pages/me/MemberCenterPage",
-    "pages/me/ActivationCodePage"
+    "pages/me/ActivationCodePage",
+    "pages/me/BindPhonePage"
   ],
   "window": {
     "designWidth": 750,

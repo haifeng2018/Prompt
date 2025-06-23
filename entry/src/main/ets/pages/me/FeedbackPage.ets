@@ -212,11 +212,6 @@ struct FeedbackPage {
           .fontSize(lpx2fp(28))
           .padding({ left: $r('app.string.lpx_5') })
         Blank()
-
-        Text('\ue88e')
-          .fontSize(lpx2fp(48))
-          .fontColor($r('app.color.color_777777'))
-          .fontFamily('myfont')
       }
       .width(Constants.FULL_PARENT)
       .height($r('app.string.lpx_102'))
