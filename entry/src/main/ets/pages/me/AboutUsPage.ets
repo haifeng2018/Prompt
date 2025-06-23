@@ -82,10 +82,6 @@ struct AboutUsPage {
       ToolBar({ title: '关于我们', shadowColor: $r('app.color.transparent') })
       Column() {
         this.head()
-        this.centerItem('用户服务协议', false, 1)
-        this.centerItem('关于获课', false, 2)
-        this.centerItem('隐私协议', false, 3)
-        this.centerItem('版本更新', true, 4)
         Blank()
         this.bottom()
       }
@@ -105,7 +101,7 @@ struct AboutUsPage {
     Image($r('app.media.ic_about_logo'))
       .width($r('app.string.lpx_128'))
       .height($r('app.string.lpx_128'))
-    Text('获课')
+    Text('录制提词器')
       .fontSize(lpx2fp(36))
       .fontColor($r('app.color.color_333333'))
       .margin({ top: $r('app.string.lpx_40') })
@@ -116,52 +112,10 @@ struct AboutUsPage {
   }
 
   @Builder
-  centerItem(title: string, hasBadge: boolean, index: number) {
-    Row() {
-      Text(title)
-        .fontColor($r('app.color.color_333333'))
-        .fontSize(lpx2fp(36))
-        .textAlign(TextAlign.Center)
-        .height(Constants.FULL_PARENT)
-
-      if (hasBadge) {
-        Badge({
-          value: '',
-          style: { badgeSize: 6, badgeColor: $r('app.color.color_EB4F3A') }
-        }) {
-          Text('')
-            .width($r('app.string.lpx_16'))
-            .height($r('app.string.lpx_16'))
-        }
-        .width($r('app.string.lpx_16'))
-        .height($r('app.string.lpx_16'))
-        .margin({ top: $r('app.string.lpx_20') })
-        .opacity(this.mLatestVersionData ? 1 : 0)
-      }
-
-      Blank()
-
-      Text($r('app.string.icon_jinrujiantou'))
-        .fontSize(lpx2fp(48))
-        .fontColor($r('app.color.color_333333'))
-        .fontFamily('myfont')
-        .height(Constants.FULL_PARENT)
-    }
-    .width(Constants.FULL_PARENT)
-    .height($r('app.string.lpx_90'))
-    .margin({ top: $r('app.string.lpx_20') })
-    .padding({ left: $r('app.string.lpx_32'), right: $r('app.string.lpx_32') })
-    .alignItems(VerticalAlign.Top)
-    .onClick(() => {
-      this.handleCenterItemClick(index)
-    })
-  }
-
-  @Builder
   bottom() {
     Column() {
       Text('Copyright © 2021-2022').textExtend()
-      Text('深圳市获客教育科技有限公司 版权所有').textExtend()
+      Text('北京天影视通科技有限公司 版权所有').textExtend()
       Text('ICP备案号：粤ICP备2021049723号-6A').textExtend()
     }.margin({ bottom: $r('app.string.lpx_40') })
   }

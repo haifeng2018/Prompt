@@ -23,6 +23,7 @@ struct MemberCenterPage {
   @State mRefreshConfig: RefreshConfig<object> = new RefreshConfig<object>()
   @State mUserInfo: UserInfo = new UserInfo()
   @State mAgree: boolean = false;
+  @State memberPackageIndex: number = 0;
 
   sendUserInfoRequest() {
     UserVM.sendUserInfoRequest(this.loginData?.token ?? '').then((data: UserInfo) => {
@@ -71,7 +72,7 @@ struct MemberCenterPage {
     }
     .width(Constants.FULL_PARENT)
     .layoutWeight(1)
-    .padding({ bottom: $r('app.string.lpx_20') })
+    .padding({ bottom: $r('app.string.lpx_40') })
   }
 
   @Builder topHeader() {
@@ -139,8 +140,8 @@ struct MemberCenterPage {
         .fontWeight(FontWeight.Bold)
 
       List({ space: 16 }) {
-        ForEach(MemberPackageList, (item: MemberPackageItem) => {
-          this.memberPackageCell(item)
+        ForEach(MemberPackageList, (item: MemberPackageItem,index: number) => {
+          this.memberPackageCell(item,index)
         })
       }
       .listDirection(Axis.Horizontal)
@@ -151,7 +152,7 @@ struct MemberCenterPage {
         .fontColor($r('app.color.color_333333'))
         .fontSize(lpx2fp(36))
         .fontWeight(FontWeight.Bold)
-        .margin({ top: $r('app.string.lpx_20') })
+        .margin({ top: $r('app.string.lpx_40') })
 
       this.payWay()
 
@@ -212,7 +213,7 @@ struct MemberCenterPage {
         .fontColor($r('app.color.color_333333'))
         .fontSize(lpx2fp(36))
         .fontWeight(FontWeight.Bold)
-        .margin({ top: $r('app.string.lpx_20') })
+        .margin({ top: $r('app.string.lpx_40') })
 
       this.privilegeList()
     }
@@ -220,6 +221,7 @@ struct MemberCenterPage {
     .backgroundColor($r('app.color.white'))
     .padding({
       top: $r('app.string.lpx_40'),
+      bottom: $r('app.string.lpx_40'),
       left: $r('app.string.lpx_32'),
       right: $r('app.string.lpx_32')
     })
@@ -229,7 +231,7 @@ struct MemberCenterPage {
     })
   }
 
-  @Builder memberPackageCell(item: MemberPackageItem) {
+  @Builder memberPackageCell(item: MemberPackageItem,index: number) {
     Column() {
       Text(item.type)
         .fontColor($r('app.color.color_333333'))
@@ -250,11 +252,14 @@ struct MemberCenterPage {
     .border({
       width: $r('app.string.lpx_2'),
       radius: $r('app.string.lpx_16'),
-      color: $r('app.color.color_666666')
+      color: this.memberPackageIndex == index ? $r('app.color.color_EB4F3A') : $r('app.color.color_666666')
     })
     .padding({
       left:$r('app.string.lpx_20'),
       right:$r('app.string.lpx_20')
+    })
+    .onClick(() => {
+      this.memberPackageIndex = index
     })
   }
 
@@ -279,22 +284,42 @@ struct MemberCenterPage {
   }
 
   @Builder privilegeList() {
-    List() {
-      ForEach(PrivilegeList, (item: PrivilegeItem) => {
+    List({space: 1}) {
+      ForEach(PrivilegeList, (item: PrivilegeItem,index: number) => {
         ListItem() {
           this.privilegeCell(item)
         }
-        .onClick(() => {
+        .border({
+          width: {
+            top: 0,
+            bottom: index >= (PrivilegeList.length - 2) ? 0 : $r('app.string.lpx_1'),
+            right: index % 2 == 0 ? $r('app.string.lpx_1') : 0,
+            left: 0
+          },
+          color: $r('app.color.color_666666')
         })
       })
     }
     .width(Constants.FULL_PARENT)
-    .margin({ top: $r('app.string.lpx_20') })
-    .padding($r('app.string.lpx_10'))
-    .backgroundColor($r('app.color.color_FF7D00'))
+    .margin({ top: $r('app.string.lpx_16') })
+    .border({
+      width: $r('app.string.lpx_1'),
+      radius: $r('app.string.lpx_16'),
+      color: $r('app.color.color_666666')
+    })
     .listDirection(Axis.Vertical)
     .edgeEffect(EdgeEffect.None)
     .lanes(2)
+    .divider({
+      strokeWidth: $r('app.string.lpx_1'),
+      color: $r('app.color.color_666666')
+    })
+    .shadow({
+      radius: 5,
+      color: $r('app.color.color_1400001E'),
+      offsetX: 5,
+      offsetY: 5
+    })
   }
 
   @Builder privilegeCell(item: PrivilegeItem) {
@@ -305,7 +330,6 @@ struct MemberCenterPage {
           .width($r('app.string.lpx_30'))
           .height($r('app.string.lpx_30'))
         Text(item.title)
-          .width(Constants.FULL_PARENT)
           .textAlign(TextAlign.Start)
           .margin({ left: $r('app.string.lpx_16') })
           .fontColor($r('app.color.color_333333'))
@@ -313,10 +337,8 @@ struct MemberCenterPage {
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
       }
-      .width(Constants.FULL_PARENT)
 
       Text(item.describe)
-        .width(Constants.FULL_PARENT)
         .textAlign(TextAlign.Start)
         .margin({ top: $r('app.string.lpx_16') })
         .fontColor($r('app.color.color_333333'))
@@ -326,8 +348,8 @@ struct MemberCenterPage {
     }
     .width(Constants.FULL_PARENT)
     .height($r('app.string.lpx_128'))
-    .padding($r('app.string.lpx_10'))
     .backgroundColor($r('app.color.white'))
+    .justifyContent(FlexAlign.Center)
   }
 
   private jumpWebPage = (title: string, url: string) => {

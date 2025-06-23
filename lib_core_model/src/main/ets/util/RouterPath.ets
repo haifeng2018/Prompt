@@ -80,4 +80,5 @@ export default class RouterPath {
   static readonly COURSE_PRACTICE_PAGE = 'pages/studycenter/CoursePracticePage';
   static readonly OFFLINE_COURSE_STUDY_PLAY_PAGE = 'pages/course/OfflineCourseStudyPlayPage';
   static readonly OFFLINE_COURSE_STUDY_UN_PLAY_PAGE = 'pages/course/OfflineCourseStudyUnPlayPage';
+  static readonly ActivationCodePage = 'pages/me/ActivationCodePage';
 }

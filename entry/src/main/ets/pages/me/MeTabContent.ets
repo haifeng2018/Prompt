@@ -13,8 +13,10 @@ import RouterPath from 'lib_core_model/src/main/ets/util/RouterPath'
 import ToastUtils from 'lib_core_model/src/main/ets/util/ToastUtils'
 import MessageVM from 'lib_core_model/src/main/ets/vm/MessageVM'
 import UserVM from 'lib_core_model/src/main/ets/vm/UserVM'
-import PhoneUtil from '../../util/PhoneUtil'
 import { HomeToolBar } from '../../view/widget/HomeToolBar'
+import { router } from '@kit.ArkUI'
+import CommonTipDialog from '../../view/dialog/CommonTipDialog'
+import ClipboardUtil from 'lib_common/src/main/ets/util/ClipboardUtil'
 
 @Preview
 @Component
@@ -24,6 +26,62 @@ export struct MeTabContent {
   @State mUserInfo: UserInfo = new UserInfo()
   @State mAdInfo: AdInfo = new AdInfo()
   @State mSignStatusCount: number = 0
+
+  pcEditTipDlgController: CustomDialogController = new CustomDialogController({
+    builder: CommonTipDialog(
+      {
+        title: '用电脑编辑文稿',
+        content: 'https://prompter01.bjtyst.net/web/#/login',
+        confirmText: '复制',
+        cancelText: '取消',
+        cancel: () => {
+        },
+        confirm: () => {
+          ClipboardUtil.copy('https://prompter01.bjtyst.net/web/#/login')
+        }
+      }),
+    alignment: DialogAlignment.Center,
+    offset: { dx: 0, dy: 0 },
+    customStyle: true,
+    autoCancel: false
+  });
+
+  toQQTipDlgController: CustomDialogController = new CustomDialogController({
+    builder: CommonTipDialog(
+      {
+        title: '"录制提词器"想要打开QQ',
+        content: '',
+        confirmText: '打开',
+        cancelText: '取消',
+        cancel: () => {
+        },
+        confirm: () => {
+        }
+      }),
+    alignment: DialogAlignment.Center,
+    offset: { dx: 0, dy: 0 },
+    customStyle: true,
+    autoCancel: false
+  });
+
+  wechatTipDlgController: CustomDialogController = new CustomDialogController({
+    builder: CommonTipDialog(
+      {
+        title: '请搜索公众号',
+        content: '北京天影视通科技有限公司',
+        confirmText: '复制',
+        cancelText: '取消',
+        cancel: () => {
+        },
+        confirm: () => {
+          ClipboardUtil.copy('北京天影视通科技有限公司')
+        }
+      }),
+    alignment: DialogAlignment.Center,
+    offset: { dx: 0, dy: 0 },
+    customStyle: true,
+    autoCancel: false
+  });
 
   aboutToAppear(): void {
     font.registerFont({
@@ -110,34 +168,32 @@ export struct MeTabContent {
         })
         break
       case 2: // 网页编辑台词
-        App.get().pushUrl({
-          url: RouterPath.MY_FAVORITE_PAGE
-        })
+        this.pcEditTipDlgController.open()
         break
       case 3: // 专属蓝牙遥控器
         App.get().pushUrl({
-          url: RouterPath.INVOICE_SERVICE_PAGE
-        })
+          url: RouterPath.WEB_PAGE,
+          params: {
+            title: '蓝牙遥控器',
+            url: 'https://www.baidu.com/',
+          },
+        }, router.RouterMode.Single)
         break
       case 4: // 激活码
         App.get().pushUrl({
-          url: RouterPath.FEEDBACK_PAGE
+          url: RouterPath.ActivationCodePage
         })
         break
       case 5: // 关于我们
         App.get().pushUrl({
-          url: RouterPath.SETTING_PAGE
+          url: RouterPath.ABOUT_US_PAGE
         })
         break
       case 6: // 我的客服
-        App.get().pushUrl({
-          url: RouterPath.SETTING_PAGE
-        })
+        this.toQQTipDlgController.open()
         break
       case 7: // 微信公众号
-        App.get().pushUrl({
-          url: RouterPath.SETTING_PAGE
-        })
+        this.wechatTipDlgController.open()
         break
       case 8: // 分享好友
         App.get().pushUrl({

@@ -65,7 +65,8 @@
     "pages/course/OfflineCourseStudyUnPlayPage",
     "pages/me/NotInvoicedPage",
     "pages/me/ViewInvoicePage",
-    "pages/me/MemberCenterPage"
+    "pages/me/MemberCenterPage",
+    "pages/me/ActivationCodePage"
   ],
   "window": {
     "designWidth": 750,
